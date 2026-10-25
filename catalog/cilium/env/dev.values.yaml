@@ -9,7 +9,8 @@ gatewayAPI:
   enabled: true
 ipam:
   mode: kubernetes
-l2announcements: true
+l2announcements:
+  enabled: true
 operator:
   replicas: 2
 securityContext:
