@@ -1,0 +1,33 @@
+# -- Labels merged into metadata.labels of every rendered manifest, in addition
+# to the standard chart labels from the "raw.labels" helper (helm.sh/chart,
+# app.kubernetes.io/name, instance, version, managed-by).
+# Precedence, highest first: labels set on an individual manifest, then
+# commonLabels, then "raw.labels". A key set at a higher level overrides the same
+# key from a lower one.
+# Example:
+#   commonLabels:
+#     app.kubernetes.io/part-of: my-app
+commonLabels: {}
+
+# -- Arbitrary Kubernetes manifests to render, keyed by a unique name.
+# The key is only used for the "# Source: manifests.<name>" comment in the output.
+# Each value is either a YAML map or a string (use a block scalar). Both forms
+# are passed through Helm's `tpl`, so they can reference .Values, .Release, etc.
+# Example:
+#   manifests:
+#     config:
+#       apiVersion: v1
+#       kind: ConfigMap
+#       metadata:
+#         name: example
+#         namespace: "{{ .Release.Namespace }}"
+#       data:
+#         key: value
+#     secret: |
+#       apiVersion: v1
+#       kind: Secret
+#       metadata:
+#         name: {{ .Release.Name }}-secret
+#       stringData:
+#         password: changeme
+manifests: {}
