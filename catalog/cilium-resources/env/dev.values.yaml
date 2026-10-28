@@ -3,7 +3,7 @@ manifests:
     apiVersion: "cilium.io/v2"
     kind: CiliumLoadBalancerIPPool
     metadata:
-      name: address-pool
+      name: homelab-ip-pool
     spec:
       blocks:
         - start: 192.168.144.235
@@ -17,3 +17,21 @@ manifests:
       interfaces:
         - eth0
       loadBalancerIPs: true
+  gateway:
+    apiVersion: gateway.networking.k8s.io/v1
+    kind: Gateway
+    metadata:
+      name: homelab-gateway
+      namespace: kube-system
+    spec:
+      gatewayClassName: cilium
+      infrastructure:
+        annotations:
+          lbipam.cilium.io/ips: "192.168.144.235"
+      listeners:
+        - name: http
+          protocol: HTTP
+          port: 80
+          allowedRoutes:
+            namespaces:
+              from: All
