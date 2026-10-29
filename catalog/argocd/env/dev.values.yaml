@@ -1,0 +1,69 @@
+global:
+  logging:
+    format: json
+  domain: argocd.homelab
+
+configs:
+  params:
+    # https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#traefik-v22
+    server.insecure: true
+
+  cm:
+    exec.enabled: true
+    admin.enabled: true
+    webhook.maxPayloadSizeMB: 1
+
+server:
+  httproute:
+    enabled: true
+    parentRefs:
+      - name: homelab-gateway
+        namespace: kube-system
+        sectionName: http
+    hostnames:
+      - argocd.homelab
+
+extraObjects:
+  - |
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: argocd-styles-cm
+        namespace: argocd
+      data:
+        homelab-nonprod.css: ""
+        homelab-prod.css: |
+          .ui-banner {
+              background: #c58882;
+              color: #eff3f5;
+              font-weight: 900;
+              font-size: 18px;
+          }
+          .sb-page-wrapper {
+              background: #c58882;
+          }
+          .argo-dropdown__anchor a {
+              color: #eff3f5;
+          }
+          .argo-table-list__head {
+              color: #ffffff;
+          }
+          .paginate li a {
+              color: #eff3f5;
+          }
+          .paginate li.disabled a {
+              color: #aababa;
+          }
+          .paginate li.selected a {
+              color: #205050;
+          }
+          .empty-state h4,
+          .empty-state h5 {
+              color: #ffffff;
+          }
+          .application-resource-tree__line {
+              border-top: 1px dashed #ffffff;
+          }
+          .application-resource-tree__edge .application-resource-tree__line:last-child:after {
+              color: #ffffff;
+          }
