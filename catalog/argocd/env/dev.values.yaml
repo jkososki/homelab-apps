@@ -12,6 +12,11 @@ configs:
     exec.enabled: true
     admin.enabled: true
     webhook.maxPayloadSizeMB: 1
+    url: https://argocd.homelab
+    ui.bannercontent: "nonprod"
+    ui.bannerpermanent: "true"
+    ui.bannerposition: "both"
+    ui.cssurl: "./custom/styles/homelab-nonprod.css"
 
 server:
   httproute:
@@ -22,6 +27,14 @@ server:
         sectionName: http
     hostnames:
       - argocd.homelab
+  volumes:
+    - name: argocd-styles
+      configMap:
+        name: argocd-styles-cm
+  volumeMounts:
+    - name: argocd-styles
+      mountPath: /shared/app/custom/styles
+
 
 extraObjects:
   - |
