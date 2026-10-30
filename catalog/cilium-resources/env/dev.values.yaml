@@ -27,7 +27,7 @@ manifests:
       gatewayClassName: cilium
       infrastructure:
         annotations:
-          lbipam.cilium.io/ips: "192.168.144.235"
+          lbipam.cilium.io/ips: ""
       listeners:
         - name: http
           protocol: HTTP
