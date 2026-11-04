@@ -1,0 +1,43 @@
+projects:
+  infrastructure:
+    name: infrastructure
+
+repositories:
+  homelabApps:
+    create: false
+    stringData:
+      name: homelab-apps
+      url: https://github.com/jkososki/homelab-apps.git
+      type: git
+  homelabCharts:
+    create: false
+    stringData:
+      name: homelab-charts
+      url: https://jkososki.github.io/charts
+      type: helm
+  argocd:
+    create: false
+    stringData:
+      name: argocd
+      url: https://argoproj.github.io/argo-helm
+      type: helm
+
+valuesRepo: homelabApps
+valuesBranch: main
+valuesEnv: ""
+
+applications:
+  argocd:
+    enabled: true
+    name: argocd
+    prefix: ""
+    project: infrastructure
+    valuesRepo: homelabApps
+    valuesPath: catalog/argocd
+    chart:
+      name: argo-cd
+      targetRevision: 10.11.6
+      registry: argocd
+    destination:
+      namespace: argocd
+      cluster: local
