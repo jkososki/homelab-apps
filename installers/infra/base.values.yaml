@@ -1,6 +1,6 @@
 projects:
-  infrastructure:
-    name: infrastructure
+  management:
+    name: management
 
 repositories:
   homelabApps:
@@ -27,17 +27,17 @@ valuesBranch: main
 valuesEnv: ""
 
 applications:
-  argocd:
+  infra:
     enabled: true
-    name: argocd
+    name: infra
     prefix: ""
-    project: infrastructure
+    project: management
     valuesRepo: homelabApps
-    valuesPath: catalog/argocd
+    valuesPath: installers/infra
     chart:
-      name: argo-cd
-      targetRevision: 10.11.6
-      registry: argocd
+      name: apps-manager
+      targetRevision: 0.1.3
+      registry: homelabCharts
     destination:
       namespace: argocd
       cluster: local
