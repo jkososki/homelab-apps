@@ -33,7 +33,7 @@ applications:
     prefix: ""
     project: management
     valuesRepo: homelabApps
-    valuesPath: installers/infra
+    valuesPath: configs/infra
     chart:
       name: apps-manager
       targetRevision: 0.1.4
