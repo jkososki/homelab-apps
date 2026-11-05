@@ -447,8 +447,6 @@ configs:
     # (e.g.)
     # otlp.address: ''
 
-    controller.diff.server.side: "true"
-
   # Argo CD RBAC policy configuration
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md
   rbac:

@@ -7,6 +7,7 @@ configs:
   params:
     # https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#traefik-v22
     server.insecure: true
+    controller.diff.server.side: "true"
 
   cm:
     exec.enabled: true
