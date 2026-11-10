@@ -1,1 +1,3 @@
 valuesEnv: dev
+enabledApplications:
+  - argocd
