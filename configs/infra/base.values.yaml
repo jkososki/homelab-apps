@@ -21,6 +21,12 @@ repositories:
       name: argocd
       url: https://argoproj.github.io/argo-helm
       type: helm
+  cilium:
+    create: false
+    stringData:
+      name: cilium
+      url: oci://quay.io/cilium/charts
+      type: helm
 
 valuesRepo: homelabApps
 valuesBranch: main
@@ -50,6 +56,19 @@ applications:
       name: gateway-api
       targetRevision: 1.6.3
       registry: homelabCharts
+    destination:
+      namespace: kube-system
+      cluster: local
+  cilium:
+    name: cilium
+    prefix: ""
+    project: infrastructure
+    valuesRepo: homelabApps
+    valuesPath: catalog/cilium
+    chart:
+      name: cilium
+      targetRevision: 1.20.3
+      registry: cilium
     destination:
       namespace: kube-system
       cluster: local

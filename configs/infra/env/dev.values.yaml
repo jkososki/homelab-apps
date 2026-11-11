@@ -2,3 +2,4 @@ valuesEnv: dev
 enabledApplications:
   - argocd
   - gateway_api
+  - cilium
