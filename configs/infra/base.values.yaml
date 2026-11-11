@@ -26,7 +26,7 @@ repositories:
     stringData:
       name: cilium
       url: oci://quay.io/cilium/charts
-      type: helm
+      type: oci
 
 valuesRepo: homelabApps
 valuesBranch: main
