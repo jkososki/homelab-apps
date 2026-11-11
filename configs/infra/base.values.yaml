@@ -49,7 +49,7 @@ applications:
     chart:
       name: gateway-api
       targetRevision: 1.6.3
-      registry: homelabApps
+      registry: homelabCharts
     destination:
       namespace: kube-system
       cluster: local
