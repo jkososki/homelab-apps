@@ -40,16 +40,16 @@ applications:
     destination:
       namespace: argocd
       cluster: local
-  # gateway_api:
-  #   name: gateway-api
-  #   prefix: ""
-  #   project: infrastructure
-  #   valuesRepo: homelabApps
-  #   valuesPath: catalog/gateway-api
-  #   chart:
-  #     name: gateway-api
-  #     targetRevision: 1.6.3
-  #     registry: homelabApps
-  #   destination:
-  #     namespace: kube-system
-  #     cluster: local
+  gateway_api:
+    name: gateway-api
+    prefix: ""
+    project: infrastructure
+    valuesRepo: homelabApps
+    valuesPath: catalog/gateway-api
+    chart:
+      name: gateway-api
+      targetRevision: 1.6.3
+      registry: homelabApps
+    destination:
+      namespace: kube-system
+      cluster: local
