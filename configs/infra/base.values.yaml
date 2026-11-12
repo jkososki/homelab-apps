@@ -65,3 +65,16 @@ applications:
     destination:
       namespace: kube-system
       cluster: local
+  cilium_resources:
+    name: cilium-resources
+    prefix: ""
+    project: infrastructure
+    valuesRepo: homelabApps
+    valuesPath: catalog/cilium-resources
+    chart:
+      name: raw
+      targetRevision: 0.1.1
+      registry: homelabCharts
+    destination:
+      namespace: kube-system
+      cluster: local

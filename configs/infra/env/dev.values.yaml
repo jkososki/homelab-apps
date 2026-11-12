@@ -3,3 +3,4 @@ enabledApplications:
   - argocd
   - gateway_api
   - cilium
+  - cilium_resources
