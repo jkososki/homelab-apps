@@ -1,6 +1,6 @@
 kubeProxyReplacement: true
 cgroup:
-  autoMount: 
+  autoMount:
     enabled: false
   hostRoot: "/sys/fs/cgroup"
 gatewayAPI:

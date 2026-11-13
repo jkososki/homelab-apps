@@ -1,4 +1,4 @@
-valuesEnv: dev
+valuesEnv: proxmox
 enabledApplications:
   - argocd
   - gateway_api

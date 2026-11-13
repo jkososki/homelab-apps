@@ -2,7 +2,7 @@
 
 Declarative application catalog and Helm values for a homelab Kubernetes cluster, managed with [Argo CD](https://argo-cd.readthedocs.io/) using the app-of-apps pattern.
 
-This repository is the source of truth for everything running in the cluster. The companion [`homelab-infra`](https://github.com/jkososki/homelab-infra) repository provisions the cluster and installs the initial platform from the values files here. After that, Argo CD watches this repository and reconciles the cluster against it.
+This repository is the source of truth for everything running in the cluster. The companion [`homelab-infra-proxmox`](https://github.com/jkososki/homelab-infra-proxmox) repository provisions the cluster and installs the initial platform from the values files here. After that, Argo CD watches this repository and reconciles the cluster against it.
 
 ## Overview
 
@@ -10,7 +10,7 @@ The repository holds no Kubernetes manifests of its own. It contains Helm values
 
 ```mermaid
 flowchart TD
-    infra["homelab-infra<br/>(OpenTofu)"]
+    infra["homelab-infra-proxmox<br/>(OpenTofu)"]
     root["homelab<br/>bootstrap/homelab"]
     group["infra<br/>configs/infra"]
     apps["Argo CD, Gateway API, Cilium<br/>catalog/*"]
@@ -24,7 +24,7 @@ Applications are organized in three tiers:
 
 | Tier        | Path          | Purpose |
 | ----------- | ------------- | ------- |
-| Bootstrap   | `bootstrap/`  | The root app-of-apps, installed once by `homelab-infra`. It creates the `management` project and one Argo CD application per group in `configs/`. |
+| Bootstrap   | `bootstrap/`  | The root app-of-apps, installed once by `homelab-infra-proxmox`. It creates the `management` project and one Argo CD application per group in `configs/`. |
 | Groups      | `configs/`    | Groups of related applications. Each group is an `apps-manager` release that declares its applications, their charts and versions, and the Argo CD project they belong to. |
 | Catalog     | `catalog/`    | Helm values for each individual application, referenced from a group by `valuesPath`. |
 
@@ -33,7 +33,7 @@ Applications are organized in three tiers:
 ```text
 .
 ├── bootstrap/
-│   └── homelab/              # Root app-of-apps (installed by homelab-infra)
+│   └── homelab/              # Root app-of-apps (installed by homelab-infra-proxmox)
 ├── configs/
 │   ├── infra/                # Platform components: Argo CD, Gateway API, Cilium
 │   └── apps/                 # Workload applications (reserved)
@@ -90,8 +90,8 @@ applications:
 Declaring an application does not deploy it. An application is only rendered when its key appears in `enabledApplications` in the environment file:
 
 ```yaml
-# configs/infra/env/dev.values.yaml
-valuesEnv: dev
+# configs/infra/env/proxmox.values.yaml
+valuesEnv: proxmox
 enabledApplications:
   - argocd
   - gateway_api
@@ -109,7 +109,7 @@ Repository entries are set to `create: false`, so `apps-manager` does not create
 1. Add `env/<env>.values.yaml` to `bootstrap/homelab` with `valuesEnv: <env>` and the groups to enable.
 2. Add `env/<env>.values.yaml` to each enabled group in `configs/`, listing its `enabledApplications`.
 3. Add `env/<env>.values.yaml` to each enabled application in `catalog/`. The file must exist, even if it is empty.
-4. Configure the new environment in [`homelab-infra`](https://github.com/jkososki/homelab-infra#adding-an-environment).
+4. Configure the new environment in [`homelab-infra-proxmox`](https://github.com/jkososki/homelab-infra-proxmox#adding-an-environment).
 
 ## Making changes
 
@@ -124,7 +124,7 @@ Edit the relevant `catalog/<component>/env/<env>.values.yaml` file and merge it 
 1. Update `chart.targetRevision` for the application in its group's `base.values.yaml`.
 2. Replace `catalog/<component>/base.values.yaml` with the default values from the new chart version.
 3. Review the upstream changes and adjust the environment overrides as needed.
-4. If the component is also installed at bootstrap, update the pinned version in `homelab-infra` so new clusters start on the same release.
+4. If the component is also installed at bootstrap, update the pinned version in `homelab-infra-proxmox` so new clusters start on the same release.
 
 ### Adding an application
 
@@ -146,7 +146,7 @@ Render a group locally to check the generated Argo CD resources before pushing:
 helm repo add homelab-charts https://jkososki.github.io/charts
 helm template infra homelab-charts/apps-manager --version 0.1.9 \
   -f configs/infra/base.values.yaml \
-  -f configs/infra/env/dev.values.yaml
+  -f configs/infra/env/proxmox.values.yaml
 ```
 
 ## Development
@@ -165,7 +165,7 @@ The hooks cover YAML validation, secret detection ([Betterleaks](https://github.
 
 ## Related repositories
 
-- [`homelab-infra`](https://github.com/jkososki/homelab-infra): provisions the Talos Kubernetes cluster on Proxmox VE and bootstraps Argo CD from this repository.
+- [`homelab-infra-proxmox`](https://github.com/jkososki/homelab-infra-proxmox): provisions the Talos Kubernetes cluster on Proxmox VE and bootstraps Argo CD from this repository.
 - [`charts`](https://github.com/jkososki/charts): Helm charts used here, including `apps-manager`, `gateway-api`, and `raw`.
 
 ## License
