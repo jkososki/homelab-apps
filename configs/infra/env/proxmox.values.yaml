@@ -4,4 +4,4 @@ enabledApplications:
   - gateway_api
   - cilium
   - cilium_resources
-  - longhorn
+  # - longhorn
