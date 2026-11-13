@@ -36,7 +36,7 @@ applications:
     valuesPath: configs/infra
     chart:
       name: apps-manager
-      targetRevision: 0.1.9
+      targetRevision: 0.1.10
       registry: homelabCharts
     destination:
       namespace: argocd
