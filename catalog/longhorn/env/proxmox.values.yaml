@@ -1,0 +1,11 @@
+httproute:
+  enabled: true
+  parentRefs:
+    - name: homelab-gateway
+      namespace: kube-system
+  hostnames:
+    - longhorn.homelab
+  filters: []
+  path: /
+  pathType: PathPrefix
+  annotations: {}
