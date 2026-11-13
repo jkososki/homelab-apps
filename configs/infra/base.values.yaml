@@ -95,7 +95,7 @@ applications:
       registry: longhorn
       targetRevision: 1.13.0
     destination:
-      namespace: kube-system
+      namespace: longhorn-system
       cluster: local
     syncPolicy:
       managedNamespaceMetadata:
