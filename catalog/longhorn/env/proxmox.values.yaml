@@ -9,3 +9,6 @@ httproute:
   path: /
   pathType: PathPrefix
   annotations: {}
+
+preUpgradeChecker:
+  jobEnabled: false
