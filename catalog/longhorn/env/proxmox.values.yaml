@@ -12,3 +12,12 @@ httproute:
 
 preUpgradeChecker:
   jobEnabled: false
+
+defaultSettings:
+  v1DataEngine: false
+  v2DataEngine: true
+  createDefaultDiskLabeledNodes: true
+  dataEngineCpuMask: '{"v2":"0x1"}'
+
+persistence:
+  dataEngine: v2
