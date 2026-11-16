@@ -5,3 +5,4 @@ enabledApplications:
   - cilium
   - cilium_resources
   - longhorn
+  - seaweedfs
