@@ -116,7 +116,7 @@ applications:
     chart:
       name: seaweedfs
       registry: seaweedfs
-      targetRevision: 4.53
+      targetRevision: "4.53"
     destination:
       namespace: seaweedfs
       cluster: local
